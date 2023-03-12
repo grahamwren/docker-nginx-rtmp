@@ -168,8 +168,11 @@ COPY nginx.conf /etc/nginx/nginx.conf.template
 RUN mkdir -p /opt/data && mkdir /www
 COPY static /www/static
 
+# Add certs
+COPY certs /opt/certs
+
 EXPOSE 1935
-EXPOSE 80
+EXPOSE 443
 
 CMD envsubst "$(env | sed -e 's/=.*//' -e 's/^/\$/g')" < \
   /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && \
